@@ -1,6 +1,6 @@
 import axiosJWT from "./ConfigAxiosInterceptor";
 
-const URL_EXCHANGE = `http://localhost:8080/mamababy/exchanges`;
+const URL_EXCHANGE = `https://swp-be.onrender.com/mamababy/exchanges`;
 
 export const allExchangeApi = (params) => {
   return axiosJWT.get(URL_EXCHANGE, {

@@ -1,6 +1,6 @@
 import axiosJWT from "./ConfigAxiosInterceptor";
 
-const URL_MAKEPAYMENT = `http://localhost:8080/mamababy/payment/vn-pay`;
+const URL_MAKEPAYMENT = `https://swp-be.onrender.com/mamababy/payment/vn-pay`;
 
 
 export const makePaymentApi = (finalAmount, bankCode, orderId, storeId) => {

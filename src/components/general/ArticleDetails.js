@@ -286,7 +286,7 @@ export default function ArticleDetail() {
                 <img
                   src={
                     article?.link_image.includes("Article_")
-                      ? `http://localhost:8080/mamababy/article/images/${article?.link_image}`
+                      ? `https://swp-be.onrender.com/mamababy/article/images/${article?.link_image}`
                       : "https://cdn-icons-png.freepik.com/256/2652/2652218.png?semt=ais_hybrid"
                   }
                   onError={(e) => {
@@ -437,7 +437,7 @@ export default function ArticleDetail() {
                       src={
                         product?.image_url &&
                         product?.image_url.includes("Product_")
-                          ? `http://localhost:8080/mamababy/products/images/${product?.image_url}`
+                          ? `https://swp-be.onrender.com/mamababy/products/images/${product?.image_url}`
                           : "https://cdni.iconscout.com/illustration/premium/thumb/sorry-item-not-found-3328225-2809510.png?f=webp"
                       }
                       onError={(e) => {

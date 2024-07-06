@@ -1,6 +1,6 @@
 import axiosJWT from "./ConfigAxiosInterceptor";
 
-const URL_ACTIVE = `http://localhost:8080/mamababy/active`;
+const URL_ACTIVE = `https://swp-be.onrender.com/mamababy/active`;
 
 export const allActiveByUserApi = (userId) => {
   return axiosJWT.get(`${URL_ACTIVE}/${userId}`);

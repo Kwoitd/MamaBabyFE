@@ -988,7 +988,7 @@ export default function Cart() {
                                               item.product.image_url?.includes(
                                                 "Product_"
                                               )
-                                                ? `http://localhost:8080/mamababy/products/images/${item.product.image_url}`
+                                                ? `https://swp-be.onrender.com/mamababy/products/images/${item.product.image_url}`
                                                 : "https://cdn-icons-png.freepik.com/256/2652/2652218.png?semt=ais_hybrid"
                                             }
                                             onError={(e) => {
@@ -1501,7 +1501,7 @@ export default function Cart() {
                             image={
                               item.product.image_url &&
                               item.product.image_url?.includes("Product_")
-                                ? `http://localhost:8080/mamababy/products/images/${item.product.image_url}`
+                                ? `https://swp-be.onrender.com/mamababy/products/images/${item.product.image_url}`
                                 : "https://cdn-icons-png.freepik.com/256/2652/2652218.png?semt=ais_hybrid"
                             }
                             onError={(e) => {

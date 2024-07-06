@@ -1,7 +1,7 @@
 import axiosJWT from "./ConfigAxiosInterceptor";
 
-const URL_ARTICLE = `http://localhost:8080/mamababy/article`;
-//const URL_ARTICLE_BY_STORE = `http://localhost:8080/mamababy/article/store`;
+const URL_ARTICLE = `https://swp-be.onrender.com/mamababy/article`;
+//const URL_ARTICLE_BY_STORE = `https://swp-be.onrender.com/mamababy/article/store`;
 
 export const allArticleApi = (params) => {
   return axiosJWT.get(URL_ARTICLE, {

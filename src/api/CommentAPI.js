@@ -1,6 +1,6 @@
 import axiosJWT from "./ConfigAxiosInterceptor";
 
-const URL_COMMENT = `http://localhost:8080/mamababy/comments`;
+const URL_COMMENT = `https://swp-be.onrender.com/mamababy/comments`;
 
 export const allCommentApi = (params) => {
   return axiosJWT.get(URL_COMMENT, {
@@ -10,18 +10,18 @@ export const allCommentApi = (params) => {
 
 export const commentByProductIdApi = (productId) => {
   return axiosJWT.get(
-    `http://localhost:8080/mamababy/comments/product/${productId}`
+    `https://swp-be.onrender.com/mamababy/comments/product/${productId}`
   );
 };
 
 export const commentByProductIdWithStoreApi = (productId) => {
   return axiosJWT.get(
-    `http://localhost:8080/mamababy/comments/store/product/${productId}`
+    `https://swp-be.onrender.com/mamababy/comments/store/product/${productId}`
   );
 };
 
 export const commentByUserIdApi = (userId) => {
-  return axiosJWT.get(`http://localhost:8080/mamababy/comments/user/${userId}`);
+  return axiosJWT.get(`https://swp-be.onrender.com/mamababy/comments/user/${userId}`);
 };
 
 export const createCommentApi = (product_id, rating, comment, user_id) => {

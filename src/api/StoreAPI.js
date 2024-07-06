@@ -1,6 +1,6 @@
 import axiosJWT from "./ConfigAxiosInterceptor";
 
-const URL_STORE = `http://localhost:8080/mamababy/stores`;
+const URL_STORE = `https://swp-be.onrender.com/mamababy/stores`;
 
 export const allStoreApi = (params) => {
   return axiosJWT.get(URL_STORE, {
@@ -15,11 +15,11 @@ export const allStoreByAdminApi = (params) => {
 };
 
 export const storeByIdApi = (storeId) => {
-  return axiosJWT.get(`http://localhost:8080/mamababy/stores/${storeId}`);
+  return axiosJWT.get(`https://swp-be.onrender.com/mamababy/stores/${storeId}`);
 };
 
 export const storeByUserIdApi = (userId) => {
-  return axiosJWT.get(`http://localhost:8080/mamababy/stores/user/${userId}`);
+  return axiosJWT.get(`https://swp-be.onrender.com/mamababy/stores/user/${userId}`);
 };
 
 export const StoreByMonthApi = async (selectedMonth) => {

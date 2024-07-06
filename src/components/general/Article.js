@@ -395,7 +395,7 @@ export default function HomePage() {
                         image={
                           item.link_image &&
                           item.link_image.includes("Article_")
-                            ? `http://localhost:8080/mamababy/products/images/${item.link_image}`
+                            ? `https://swp-be.onrender.com/mamababy/products/images/${item.link_image}`
                             : "https://cdn-icons-png.freepik.com/256/2652/2652218.png?semt=ais_hybrid"
                         }
                         onError={(e) => {

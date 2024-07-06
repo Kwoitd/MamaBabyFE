@@ -1,8 +1,8 @@
 import axiosJWT from "./ConfigAxiosInterceptor";
 
-const URL_ORDER = `http://localhost:8080/mamababy/orders`;
-const URL_STATUSORDER = `http://localhost:8080/mamababy/status_orders`;
-const URL_ORDERDETAIL = `http://localhost:8080/mamababy/order_details`;
+const URL_ORDER = `https://swp-be.onrender.com/mamababy/orders`;
+const URL_STATUSORDER = `https://swp-be.onrender.com/mamababy/status_orders`;
+const URL_ORDERDETAIL = `https://swp-be.onrender.com/mamababy/order_details`;
 
 export const allOrderApi = (params) => {
   return axiosJWT.get(URL_ORDER, {

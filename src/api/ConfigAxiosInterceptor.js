@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosJWT = axios.create({
-  baseURL: 'http://localhost:8080/mamababy',
+  baseURL: 'https://swp-be.onrender.com/mamababy',
 });
 
 // Add a request interceptor

@@ -1,6 +1,6 @@
 import axiosJWT from "./ConfigAxiosInterceptor";
 
-const URL_CATEGORY = `http://localhost:8080/mamababy/categories`;
+const URL_CATEGORY = `https://swp-be.onrender.com/mamababy/categories`;
 
 export const allCategorytApi = (params) => {
   return axiosJWT.get(URL_CATEGORY, {

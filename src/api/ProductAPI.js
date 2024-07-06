@@ -1,9 +1,9 @@
 import axiosJWT from "./ConfigAxiosInterceptor";
 
-const URL_PRODUCT = `http://localhost:8080/mamababy/products`;
-// const URL_PRODUCTBYID = `http://localhost:8080/mamababy/products/${productId}`;
-// const URL_ADD_PRODUCT = `http://localhost:8080/mamababy/products`;
-// const URL_UPDATE_PRODUCT = `http://localhost:8080/mamababy/products`;
+const URL_PRODUCT = `https://swp-be.onrender.com/mamababy/products`;
+// const URL_PRODUCTBYID = `https://swp-be.onrender.com/mamababy/products/${productId}`;
+// const URL_ADD_PRODUCT = `https://swp-be.onrender.com/mamababy/products`;
+// const URL_UPDATE_PRODUCT = `https://swp-be.onrender.com/mamababy/products`;
 
 export const allProductApi = (params) => {
   return axiosJWT.get(URL_PRODUCT, {

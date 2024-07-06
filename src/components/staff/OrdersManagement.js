@@ -661,7 +661,7 @@ export default function OrdersManagement() {
                                         productMap[
                                           detail.product_id
                                         ][4]?.includes("Product_")
-                                          ? `http://localhost:8080/mamababy/products/images/${
+                                          ? `https://swp-be.onrender.com/mamababy/products/images/${
                                               productMap[detail.product_id][4]
                                             }`
                                           : "https://cdn-icons-png.freepik.com/256/2652/2652218.png?semt=ais_hybrid"

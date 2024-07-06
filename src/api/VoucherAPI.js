@@ -1,7 +1,7 @@
 import axiosJWT from "./ConfigAxiosInterceptor";
 
-const URL_VOUCHER = `http://localhost:8080/mamababy/vouchers`;
-const URL_VOUCHERADMIN = `http://localhost:8080/mamababy/vouchers/admin`;
+const URL_VOUCHER = `https://swp-be.onrender.com/mamababy/vouchers`;
+const URL_VOUCHERADMIN = `https://swp-be.onrender.com/mamababy/vouchers/admin`;
 
 export const allVoucherApi = (params) => {
   return axiosJWT.get(URL_VOUCHER, {

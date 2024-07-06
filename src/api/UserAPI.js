@@ -1,13 +1,13 @@
 import axiosJWT from "./ConfigAxiosInterceptor";
 
-const URL_USER = `http://localhost:8080/mamababy/users/all`;
-const URL_LOGIN = `http://localhost:8080/mamababy/users/login`;
-const URL_SIGNUP = `http://localhost:8080/mamababy/users/register`;
-const URL_USERDETAIL = `http://localhost:8080/mamababy/users/details`;
-const URL_ACTIVE = `http://localhost:8080/mamababy/users/admin`;
-const URL_ACTIVESTORE = `http://localhost:8080/mamababy/users/admin`;
-// const URL_LOGOUT = `http://localhost:8080/mamababy/users/logout`;
-const URL_ACCOUNT = `http://localhost:8080/mamababy/users`;
+const URL_USER = `https://swp-be.onrender.com/mamababy/users/all`;
+const URL_LOGIN = `https://swp-be.onrender.com/mamababy/users/login`;
+const URL_SIGNUP = `https://swp-be.onrender.com/mamababy/users/register`;
+const URL_USERDETAIL = `https://swp-be.onrender.com/mamababy/users/details`;
+const URL_ACTIVE = `https://swp-be.onrender.com/mamababy/users/admin`;
+const URL_ACTIVESTORE = `https://swp-be.onrender.com/mamababy/users/admin`;
+// const URL_LOGOUT = `https://swp-be.onrender.com/mamababy/users/logout`;
+const URL_ACCOUNT = `https://swp-be.onrender.com/mamababy/users`;
 
 export const allUserApi = (params) => {
   return axiosJWT.get(URL_USER, {

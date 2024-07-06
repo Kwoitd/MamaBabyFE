@@ -252,7 +252,7 @@ export default function CommentHistory() {
                                 component="img"
                                 image={
                                   item.image_url.includes("Product_")
-                                    ? `http://localhost:8080/mamababy/products/images/${item.image_url}`
+                                    ? `https://swp-be.onrender.com/mamababy/products/images/${item.image_url}`
                                     : "https://cdn-icons-png.freepik.com/256/2652/2652218.png?semt=ais_hybrid"
                                 }
                                 onError={(e) => {

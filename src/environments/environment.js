@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiBaseUrl: "http://localhost:8080/mamababy",
+  apiBaseUrl: "https://swp-be.onrender.com/mamababy",
 };
