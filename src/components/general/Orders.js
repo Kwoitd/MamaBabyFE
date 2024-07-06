@@ -407,7 +407,7 @@ export default function Orders() {
     //   .then((res) => (
     for (const item of items) {
       const res = await productByIdApi(item.product_id);
-      console.log(res?.data?.data),
+    // console.log(res?.data?.data)
         dispatch(
           addToCart({
             product: {

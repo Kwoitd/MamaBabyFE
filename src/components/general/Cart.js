@@ -242,12 +242,14 @@ export default function Cart() {
   };
 
   const handleOpen = () => {
-    !isEmptyCart
-      ? (setOpen(true),
-        setFullName(userInfo.full_name),
-        setPhone(userInfo.phone_number),
-        setAddress(userInfo.address))
-      : toast.warn("There's no item in your cart", { autoClose: 1000 });
+    if (!isEmptyCart) {
+      setOpen(true);
+      setFullName(userInfo.full_name);
+      setPhone(userInfo.phone_number);
+      setAddress(userInfo.address);
+    } else {
+      toast.warn("There's no item in your cart", { autoClose: 1000 });
+    }
   };
   const handleClose = () => (
     setOpen(false),
