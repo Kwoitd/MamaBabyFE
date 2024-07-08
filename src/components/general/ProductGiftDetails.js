@@ -28,16 +28,13 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
 } from "@mui/material";
-import { Rating } from "@mui/material";
 import Cart from "@mui/icons-material/ShoppingCart";
-import { KeyboardCapslock } from "@mui/icons-material";
+import { KeyboardCapslock, VerifiedUser } from "@mui/icons-material";
 import { addToCart } from "../../redux/CartSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { jwtDecode } from "jwt-decode";
 
 export default function ProductDetails() {
   const [visible, setVisible] = useState(false);
@@ -153,8 +150,22 @@ export default function ProductDetails() {
 
   window.document.title = `${product?.name}`;
 
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat("vi-VN").format(amount) + " VND";
+  const formatCurrencyPoint = (amount) => {
+    return (
+      <>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          {new Intl.NumberFormat("vi-VN").format(amount)}
+          <MonetizationOnIcon
+            variant="h6"
+            sx={{
+              marginLeft: "4px",
+              color: "gray",
+              fontSize: 24,
+            }}
+          />
+        </Box>
+      </>
+    );
   };
 
   if (!product) {
@@ -190,8 +201,11 @@ export default function ProductDetails() {
           name: product.name,
           price: product.price,
           point: product.point,
+          remain: product.remain,
           type: product.type,
+          status: product.status,
           store_id: product.store_id,
+          image_url: product.image_url,
         },
         quantity: quantity,
       })
@@ -325,8 +339,8 @@ export default function ProductDetails() {
                   border: "3px solid #ff469e",
                   color: "black",
                   padding: "20px",
-                  maxWidth: "900px",
-                  width: "60vw",
+                  maxWidth: "1500px",
+                  width: "72vw",
                   margin: "0 auto",
                 }}
               >
@@ -359,6 +373,21 @@ export default function ProductDetails() {
                           alt={product.name}
                         />
                       </Paper>
+                      <Box sx={{ display: "flex", mt: 1.5 }}>
+                        <VerifiedUser
+                          sx={{
+                            color: "#ff469e",
+                            fontSize: "1.5rem",
+                            mr: 1,
+                            pt: 1,
+                          }}
+                        />
+                        <Typography
+                          sx={{ color: "black", fontSize: "1.2rem", mt: 0.7 }}
+                        >
+                          100% genuine product
+                        </Typography>
+                      </Box>
                     </Grid>
                     <Grid
                       item
@@ -374,7 +403,13 @@ export default function ProductDetails() {
                         <Typography variant="h6">Brand:</Typography>
                         <Typography
                           variant="h6"
-                          style={{ color: "#ff469e", fontWeight: "bold" }}
+                          style={{
+                            borderRadius: "1rem",
+                            border: "1px solid #ff469e",
+                            color: "#ff469e",
+                            fontWeight: "bold",
+                            padding: "0 8px",
+                          }}
                         >
                           {brandMap[product.brand_id]}
                         </Typography>
@@ -390,17 +425,28 @@ export default function ProductDetails() {
                         >
                           {product.name}
                         </Typography>
-                        <Box sx={{ display: "flex", alignItems: "center" }}>
-                          <Typography variant="h6" sx={{ textAlign: "left" }}>
-                            {product.point}
+                        <Box
+                          sx={{
+                            width: "100%",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            mt: 1,
+                          }}
+                        >
+                          <Typography variant="h5" sx={{ textAlign: "left", color: "#ff469e", fontWeight: "bold" }}>
+                            {formatCurrencyPoint(product.point)}
                           </Typography>
-                          <MonetizationOnIcon
-                            variant="h6"
-                            sx={{
-                              marginLeft: "4px",
-                              fontSize: 24,
-                            }}
-                          />
+                          <Typography
+                            variant="h5"
+                            style={{ textAlign: "right" }}
+                          >
+                            Available:{" "}
+                            <span
+                              style={{ color: "#ff469e", fontWeight: "600" }}
+                            >
+                              {product.remain}
+                            </span>
+                          </Typography>
                         </Box>
                       </div>
 
@@ -409,6 +455,7 @@ export default function ProductDetails() {
                         <Typography
                           variant="h6"
                           style={{
+                            borderRadius: "1rem",
                             border: "1px solid #ff469e",
                             color: "#ff469e",
                             fontWeight: "bold",
@@ -423,6 +470,7 @@ export default function ProductDetails() {
                         <Typography
                           variant="h6"
                           style={{
+                            borderRadius: "1rem",
                             border: "1px solid #ff469e",
                             color: "#ff469e",
                             fontWeight: "bold",
@@ -681,7 +729,7 @@ export default function ProductDetails() {
                     </Box>
                   </Box>
                 </Box>
-                <Box sx={{ display: "flex", alignItems: "center" }}>
+                {/* <Box sx={{ display: "flex", alignItems: "center" }}>
                   <Button
                     variant="outlined"
                     sx={{
@@ -752,28 +800,54 @@ export default function ProductDetails() {
                   >
                     + Follow
                   </Button>
-                </Box>
+                </Box> */}
                 <Box>
-                  <Typography variant="body2">
-                    Followers:{" "}
-                    <span style={{ color: "#ff469e", fontWeight: "bold" }}>
-                      1K
-                    </span>
-                  </Typography>
-                  <Typography variant="body2">
-                    Satisfaction:{" "}
-                    <span style={{ color: "#ff469e", fontWeight: "bold" }}>
-                      100%
-                    </span>
-                  </Typography>
-                  <Typography variant="body2">
-                    Ratings:{" "}
-                    <span style={{ color: "#ff469e", fontWeight: "bold" }}>
-                      5.0 / 5.0
-                    </span>
-                  </Typography>
-                </Box>
-                <Box>
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      mr: 0.5,
+                      mb: 2,
+                      borderColor: "#ff469e",
+                      color: "#ff469e",
+                      padding: "8px 16px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderRadius: "20px",
+                      transition:
+                        "transform 0.3s ease-in-out, border-color 0.3s ease-in-out",
+                      "&:hover": {
+                        transform: "scale(1.1)",
+                        borderColor: "#ff469e",
+                        color: "#ff469e",
+                      },
+                    }}
+                    onClick={() => (
+                      navigate(`/stores/${product.store_id}`, {
+                        state: { storeId: product.store_id },
+                      }),
+                      window.scrollTo({
+                        top: 0,
+                        behavior: "smooth",
+                      })
+                    )}
+                  >
+                    <ShopIcon
+                      sx={{
+                        mr: 1,
+                        color: "#ff469e",
+                        verticalAlign: "middle",
+                      }}
+                    />
+                    <Typography
+                      sx={{
+                        verticalAlign: "middle",
+                        lineHeight: 1,
+                      }}
+                    >
+                      Visit Shop
+                    </Typography>
+                  </Button>
                   <Typography
                     variant="body2"
                     sx={{ display: "flex", alignItems: "center" }}
@@ -993,6 +1067,7 @@ export default function ProductDetails() {
                   mr: 2,
                   padding: "0.25rem 0.5rem",
                   boxShadow: "none",
+                  border: "1px solid #f5f7fd",
                   transition:
                     "background-color 0.4s ease-in-out, color 0.4s ease-in-out, border 0.3s ease-in-out",
                   "&:hover": {

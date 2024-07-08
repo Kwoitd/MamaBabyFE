@@ -7,49 +7,45 @@ import { allStoreApi } from "../../api/StoreAPI";
 
 export default function SuccessPayment() {
   const [storeMap, setStoreMap] = useState({});
-    const navigate = useNavigate();
-    const location = useLocation();
-    
-    const accessToken = localStorage.getItem("accessToken");
-    const decodedAccessToken = accessToken ? jwtDecode(accessToken) : null;
-    const role = decodedAccessToken?.RoleID;
-  
-    useEffect(() => {
-      if (!accessToken || role !== "MEMBER") {
-        window.location.replace("/");
-        return;
-      }
-  
-      const fetchData = async () => {
-        try {
-          const query = new URLSearchParams(location.search);
-          const orderId = query.get("orderId");
-          const storeId = query.get("storeId");
-  
-          const storeRes = await allStoreApi({ limit: 1000 });
-          const storeData = storeRes?.data?.data?.stores || [];
-  
-          const storeMap = storeData.reduce((x, item) => {
-            x[item.id] = item.name_store;
-            return x;
-          }, {});
-          
-          setStoreMap(storeMap);
-        } catch (err) {
-          console.log(err);
-        }
-      };
-  
-      fetchData();
-    }, [accessToken, role, location]);
-  
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const accessToken = localStorage.getItem("accessToken");
+  const decodedAccessToken = accessToken ? jwtDecode(accessToken) : null;
+  const role = decodedAccessToken?.RoleID;
+
+  useEffect(() => {
     if (!accessToken || role !== "MEMBER") {
-      return null; // Avoid rendering anything if the user is not authenticated
+      window.location.replace("/");
+      return;
     }
-  
-    const query = new URLSearchParams(location.search);
-    const orderId = query.get("orderId");
-    const storeId = query.get("storeId");
+
+    const fetchData = async () => {
+      try {
+        const storeRes = await allStoreApi({ limit: 1000 });
+        const storeData = storeRes?.data?.data?.stores || [];
+
+        const storeMap = storeData.reduce((x, item) => {
+          x[item.id] = item.name_store;
+          return x;
+        }, {});
+
+        setStoreMap(storeMap);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
+  }, [accessToken, role, location]);
+
+  if (!accessToken || role !== "MEMBER") {
+    return null;
+  }
+
+  const query = new URLSearchParams(location.search);
+  const orderId = query.get("orderId");
+  const storeId = query.get("storeId");
 
   return (
     <div

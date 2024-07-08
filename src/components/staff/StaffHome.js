@@ -292,13 +292,31 @@ export default function StaffHome() {
   const decodedAccessToken = jwtDecode(accessToken);
   const userId = decodedAccessToken.UserID;
 
+  // useEffect(() => {
+  //   storeByUserIdApi(userId)
+  //     .then((res) => {
+  //       setStore(res?.data?.data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
+
   useEffect(() => {
-    storeByUserIdApi(userId)
-      .then((res) => {
-        setStore(res?.data?.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    storeByUserIdApi(userId).then((res) => {
+      setStore(res?.data?.data);
+    });
+    fetchData();
+  }, [
+    ageFilter,
+    brandFilter,
+    categoryFilter,
+    store.id,
+    currentPage,
+    sortPrice,
+  ]);
 
   const storeId = store.id;
   const fetchData = async () => {
@@ -313,7 +331,7 @@ export default function StaffHome() {
           category_id: categoryFilter,
           brand_id: brandFilter,
           age_id: ageFilter,
-          store_id: storeId,
+          store_id: store.id,
           page: currentPage - 1,
         }),
       ]);
@@ -349,14 +367,6 @@ export default function StaffHome() {
       console.log(err);
     }
   };
-
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-    fetchData();
-  }, [ageFilter, brandFilter, categoryFilter, storeId, currentPage, sortPrice]);
 
   const onPageChange = (page) => {
     fetchData(page);
@@ -483,7 +493,7 @@ export default function StaffHome() {
         "If the status is in stock, the remain must be greater than 0."
       );
       return;
-    } else if (status !== statusInStock && remain < 0) {
+    } else if (status !== statusInStock && remain <= 0) {
       toast.error(
         "If the status is coming soon, the remain must be greater than or equal to 0."
       );
@@ -651,7 +661,7 @@ export default function StaffHome() {
       return;
     } else if (
       selectedProduct?.status !== statusInStock &&
-      selectedProduct?.remain < 0
+      selectedProduct?.remain <= 0
     ) {
       toast.error(
         "If the status is coming soon, the remain must be greater than or equal to 0."
@@ -1738,7 +1748,7 @@ export default function StaffHome() {
                 </Grid>
               ) : (
                 product?.products?.map((item, index) => (
-                  <Grid item xs={12} sm={6} lg={4} key={index}>
+                  <Grid item xs={12} sm={6} lg={4} key={index} sx={{ display: "flex", flexWrap: "wrap" }}>
                     <Tooltip
                       title={item.name}
                       enterDelay={500}
@@ -1761,9 +1771,11 @@ export default function StaffHome() {
                     >
                       <Card
                         sx={{
+                          cursor: "pointer",
                           display: "flex",
                           flexDirection: "column",
                           minWidth: 180,
+                          flexGrow: 1,
                           padding: 2,
                           border: "1px solid #f5f7fd",
                           borderRadius: "16px",

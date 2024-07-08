@@ -43,6 +43,7 @@ export default function Cart() {
   window.document.title = "Cart";
   const [visible, setVisible] = useState(false);
   const [open, setOpen] = useState(false);
+  const [openConfirm, setOpenConfirm] = useState(false);
   const [userInfo, setUserInfo] = useState([]);
   const [store, setStore] = useState([]);
   const [active, setActive] = useState({});
@@ -75,11 +76,9 @@ export default function Cart() {
       userId = decodedAccessToken.UserID;
     } catch (error) {
       console.error("Failed to decode token:", error);
-      // Xử lý lỗi nếu cần thiết
     }
   } else {
     console.warn("Invalid token specified: must be a string");
-    // Xử lý trường hợp token không hợp lệ nếu cần thiết
   }
 
   useEffect(() => {
@@ -251,6 +250,7 @@ export default function Cart() {
       toast.warn("There's no item in your cart", { autoClose: 1000 });
     }
   };
+
   const handleClose = () => (
     setOpen(false),
     setSelectedStoreId(""),
@@ -258,6 +258,14 @@ export default function Cart() {
     setSelectedStoreProducts([]),
     setSelectedVoucher("")
   );
+
+  const handleOpenConfirm = () => {
+    setOpenConfirm(true);
+  };
+
+  const handleCloseConfirm = () => {
+    setOpenConfirm(false);
+  };
 
   const handleFullNameChange = (e) => {
     setFullName(e.target.value);
@@ -303,7 +311,12 @@ export default function Cart() {
 
     const bankCode = "VNBANK";
 
-    const type = "ORDER";
+    const type = selectedStoreProducts?.some(
+      (item) => item.product.status === "COMING SOON"
+    )
+      ? "PRE_ORDER"
+      : "ORDER";
+    console.log(type);
 
     const storeId = selectedStoreId;
 
@@ -646,7 +659,7 @@ export default function Cart() {
                               </IconButton>
                             </div>
                             <Grid container spacing={2} sx={{ mb: 3 }}>
-                              <Grid item xs={12} md={6} lg={8}>
+                              <Grid item xs={12} md={8}>
                                 <Box>
                                   <Typography
                                     sx={{
@@ -793,7 +806,7 @@ export default function Cart() {
                                   </div>
                                 </Box>
                               </Grid>
-                              <Grid item xs={12} md={6} lg={4}>
+                              <Grid item xs={12} md={4} lg={4}>
                                 <Typography
                                   sx={{
                                     fontWeight: "bold",
@@ -924,7 +937,7 @@ export default function Cart() {
                               </Grid>
                             </Grid>
                             <Grid container spacing={4}>
-                              <Grid item xs={12} md={6} lg={8}>
+                              <Grid item xs={12} md={8}>
                                 <Typography
                                   sx={{ fontWeight: "bold", fontSize: "20px" }}
                                 >
@@ -1097,9 +1110,16 @@ export default function Cart() {
                                                 mt: 1,
                                               }}
                                             >
-                                              <Typography
-                                                sx={{ opacity: 0.7 }}
-                                              ></Typography>
+                                              <Typography sx={{ opacity: 0.9 }}>
+                                                {item.product.status ===
+                                                  "COMING SOON" && (
+                                                  <span
+                                                    style={{ color: "#ff469e" }}
+                                                  >
+                                                    (Pre-order product)
+                                                  </span>
+                                                )}
+                                              </Typography>
                                               <Typography sx={{ opacity: 0.8 }}>
                                                 <Box
                                                   sx={{
@@ -1146,7 +1166,7 @@ export default function Cart() {
                               <Grid
                                 item
                                 xs={12}
-                                md={6}
+                                md={4}
                                 lg={4}
                                 sx={{ textAlign: "right" }}
                               >
@@ -1454,7 +1474,7 @@ export default function Cart() {
                                 <Button
                                   variant="contained"
                                   fullWidth
-                                  onClick={handleCheckout}
+                                  onClick={() => handleOpenConfirm()}
                                   sx={{
                                     backgroundColor: "white",
                                     color: "#ff469e",
@@ -1474,6 +1494,101 @@ export default function Cart() {
                                 >
                                   Payment Check
                                 </Button>
+                                <Modal
+                                  open={openConfirm}
+                                  onClose={handleCloseConfirm}
+                                  slotProps={{
+                                    backdrop: {
+                                      style: {
+                                        backgroundColor: "rgba(0, 0, 0, 0.1)",
+                                      },
+                                    },
+                                  }}
+                                >
+                                  <Box
+                                    sx={{
+                                      position: "absolute",
+                                      top: "50%",
+                                      left: "50%",
+                                      transform: "translate(-50%, -50%)",
+                                      width: 400,
+                                      borderRadius: "20px",
+                                      backgroundColor: "#fff4fc",
+                                      border: "2px solid #ff469e",
+                                      boxShadow: 10,
+                                      p: 4,
+                                    }}
+                                  >
+                                    <Typography
+                                      id="modal-modal-title"
+                                      variant="h6"
+                                      component="h2"
+                                    >
+                                      Confirm Checkout
+                                    </Typography>
+                                    <Typography
+                                      id="modal-modal-description"
+                                      sx={{ mt: 2 }}
+                                    >
+                                      Are you sure you want to checkout
+                                      for this order?
+                                    </Typography>
+                                    <Box
+                                      sx={{
+                                        mt: 2,
+                                        display: "flex",
+                                        justifyContent: "flex-end",
+                                      }}
+                                    >
+                                      <Button
+                                        variant="contained"
+                                        sx={{
+                                          backgroundColor: "white",
+                                          color: "#ff469e",
+                                          borderRadius: "20px",
+                                          fontSize: 16,
+                                          fontWeight: "bold",
+                                          my: 0.2,
+                                          mx: 1,
+                                          transition:
+                                            "background-color 0.4s ease-in-out, color 0.4s ease-in-out, border 0.3s ease-in-out",
+                                          border: "1px solid #ff469e",
+                                          "&:hover": {
+                                            backgroundColor: "#ff469e",
+                                            color: "white",
+                                            border: "1px solid white",
+                                          },
+                                        }}
+                                        onClick={handleCheckout}
+                                      >
+                                        Yes
+                                      </Button>
+                                      <Button
+                                        variant="contained"
+                                        sx={{
+                                          backgroundColor: "white",
+                                          color: "#ff469e",
+                                          borderRadius: "20px",
+                                          fontSize: 16,
+                                          fontWeight: "bold",
+                                          my: 0.2,
+                                          mx: 1,
+                                          transition:
+                                            "background-color 0.4s ease-in-out, color 0.4s ease-in-out, border 0.3s ease-in-out",
+                                          border: "1px solid #ff469e",
+                                          "&:hover": {
+                                            backgroundColor: "#ff469e",
+                                            color: "white",
+                                            border: "1px solid white",
+                                          },
+                                        }}
+                                        onClick={handleCloseConfirm}
+                                      >
+                                        No
+                                      </Button>
+                                    </Box>
+                                  </Box>
+                                </Modal>
                               </Grid>
                             </Grid>
                           </Box>
@@ -1512,7 +1627,25 @@ export default function Cart() {
                             title={item.product.name}
                           />
                           <CardContent sx={{ flex: "1 0 auto", ml: 2 }}>
-                            <Box sx={{ textAlign: "right", height: "30px" }}>
+                            <Box
+                              sx={{
+                                height: "30px",
+                                ...(item.product.status === "COMING SOON"
+                                  ? {
+                                      display: "flex",
+                                      justifyContent: "space-between",
+                                    }
+                                  : { textAlign: "right" }),
+                                my: 0.5,
+                              }}
+                            >
+                              {item.product.status === "COMING SOON" && (
+                                <Typography
+                                  sx={{ color: "#ff469e", fontSize: "1rem" }}
+                                >
+                                  (Pre-order product)
+                                </Typography>
+                              )}
                               <IconButton
                                 size="small"
                                 onClick={() => (
@@ -1789,7 +1922,10 @@ export default function Cart() {
                                 </Button>
                                 <Button
                                   variant="contained"
-                                  disabled={item.quantity >= 99 || item.quantity >= item.product.remain}
+                                  disabled={
+                                    item.quantity >= 99 ||
+                                    item.quantity >= item.product.remain
+                                  }
                                   // onClick={() => {
                                   //   dispatch(
                                   //     addToCart({
@@ -1831,7 +1967,10 @@ export default function Cart() {
                                 </Button>
                                 <Button
                                   variant="contained"
-                                  disabled={item.quantity >= 99 || item.quantity >= item.product.remain}
+                                  disabled={
+                                    item.quantity >= 99 ||
+                                    item.quantity >= item.product.remain
+                                  }
                                   // onClick={() => {
                                   //   const newQuantity =
                                   //     item.quantity <= 89
@@ -1847,7 +1986,10 @@ export default function Cart() {
                                   onClick={() => {
                                     const newQuantity =
                                       item.quantity <= 89
-                                        ? Math.min(10, item.product.remain - item.quantity)
+                                        ? Math.min(
+                                            10,
+                                            item.product.remain - item.quantity
+                                          )
                                         : 99 - item.quantity;
                                     dispatch(
                                       updateQuantityCart({
