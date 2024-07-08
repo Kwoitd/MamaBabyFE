@@ -178,7 +178,7 @@ export default function Articles() {
   };
 
   const handleAddArticle = () => {
-    if (!header || !content || !image.file || !productRecom) {
+  if (!header || !content || !image.file) {
       toast.warn("Please fill in all fields and select a file.");
       return;
     }
