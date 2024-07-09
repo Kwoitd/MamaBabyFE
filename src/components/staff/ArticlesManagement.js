@@ -816,7 +816,7 @@ export default function Articles() {
                             component="img"
                             image={
                               item.link_image &&
-                                item.link_image.includes("Article_")
+                              item.link_image.includes("Article_")
                                 ? `https://swp-be.onrender.com/mamababy/products/images/${item.link_image}`
                                 : "https://cdn-icons-png.freepik.com/256/2652/2652218.png?semt=ais_hybrid"
                             }
@@ -1438,7 +1438,7 @@ export default function Articles() {
                     <img
                       src={
                         product.image_url &&
-                          product.image_url.includes("Product_")
+                        product.image_url.includes("Product_")
                           ? `https://swp-be.onrender.com/mamababy/products/images/${product.image_url}`
                           : "https://cdn-icons-png.freepik.com/256/2652/2652218.png?semt=ais_hybrid"
                       }
