@@ -250,7 +250,6 @@ export default function Cart() {
       toast.warn("There's no item in your cart", { autoClose: 1000 });
     }
   };
-
   const handleClose = () => (
     setOpen(false),
     setSelectedStoreId(""),
@@ -1530,8 +1529,8 @@ export default function Cart() {
                                       id="modal-modal-description"
                                       sx={{ mt: 2 }}
                                     >
-                                      Are you sure you want to checkout
-                                      for this order?
+                                      Are you sure you want to checkout for this
+                                      order?
                                     </Typography>
                                     <Box
                                       sx={{

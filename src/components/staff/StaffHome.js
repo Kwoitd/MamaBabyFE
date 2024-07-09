@@ -80,7 +80,6 @@ export default function StaffHome() {
   const statusInStock = "IN STOCK";
   const statusComingSoon = "COMING SOON";
   const [sortPrice, setSortPrice] = useState("");
-
   const countries = [
     "Afghanistan",
     "Albania",
@@ -474,9 +473,9 @@ export default function StaffHome() {
   const handleAddProduct = () => {
     if (
       !name ||
-      !price ||
-      !point ||
-      !remain ||
+      price === "" ||
+      point === "" ||
+      remain === "" ||
       !image.file ||
       !weight ||
       !brandOrigin ||
@@ -637,10 +636,9 @@ export default function StaffHome() {
     debugger;
     if (
       !selectedProduct.name ||
-      !selectedProduct.price ||
+      selectedProduct.price === "" ||
       selectedProduct.point === "" ||
-      !selectedProduct.remain ||
-      !image.url ||
+      selectedProduct.remain === "" ||
       !weight ||
       !brandOrigin ||
       !manufacturedAt ||
@@ -716,11 +714,10 @@ export default function StaffHome() {
     const fullDescription = `${weight}|${unit}|${brandOrigin}|${manufacturedAt}|${manufacturer}|${ingredient}|${usageInstructions}|${storageInstructions}`;
     setDescription(fullDescription);
     selectedProduct.description = fullDescription;
-    console.log(selectedProduct.expiryDate);
 
     //Handle product updates
     updateProductApi(
-      image.file || "",
+      image.file,
       selectedProduct.id,
       selectedProduct.name,
       selectedProduct.price,
@@ -744,13 +741,8 @@ export default function StaffHome() {
         toast.success("Product updated successfully!");
       })
       .catch((error) => {
-        if (error.response.headers["content-type"] === "application/json") {
-          toast.error(
-            "The product photo is currently damaged, please select a new photo."
-          );
-        } else {
-          toast.error("Failed to update product. Please try again later.");
-        }
+        console.error("Error updating product:", error);
+        toast.error("Failed to update product. Please try again later.");
         // if (error.response) {
         //   console.error("Error response data:", error.response.data);
         //   console.error("Error response status:", error.response.status);
@@ -778,11 +770,12 @@ export default function StaffHome() {
     const setImageFromUrl = async (url) => {
       if (image.url === "") {
         try {
-          const response = await fetch(url);
-          const blob = await response.blob();
-          const file = new File([blob], selectedProduct.image_url, {
-            type: blob.type,
-          });
+          // const response = await fetch(url);
+          // const blob = await response.blob();
+          // const file = new File([blob], selectedProduct.image_url, {
+          //   type: blob.type,
+          // });
+          const file = null;
 
           setImage((prevImage) => ({
             ...prevImage,
@@ -953,6 +946,7 @@ export default function StaffHome() {
               <Button
                 variant="contained"
                 color="primary"
+                disabled={!store.is_active}
                 sx={{
                   display: "flex",
                   justifyContent: "center",
@@ -1406,6 +1400,7 @@ export default function StaffHome() {
             <Button
               variant="contained"
               color="primary"
+              disabled={!store.is_active}
               sx={{
                 display: "flex",
                 justifyContent: "center",
@@ -1841,7 +1836,12 @@ export default function StaffHome() {
                               `/staff/products/${item.name
                                 .toLowerCase()
                                 .replace(/\s/g, "-")}`,
-                              { state: { productId: item.id } },
+                              {
+                                state: {
+                                  productId: item.id,
+                                  status: store.is_active,
+                                },
+                              },
                               window.scrollTo({
                                 top: 0,
                                 behavior: "smooth",
@@ -1855,7 +1855,12 @@ export default function StaffHome() {
                               `/staff/products/${item.name
                                 .toLowerCase()
                                 .replace(/\s/g, "-")}`,
-                              { state: { productId: item.id } },
+                              {
+                                state: {
+                                  productId: item.id,
+                                  status: store.is_active,
+                                },
+                              },
                               window.scrollTo({
                                 top: 0,
                                 behavior: "smooth",
@@ -1958,6 +1963,7 @@ export default function StaffHome() {
                         </CardContent>
                         <Divider sx={{ mt: 0.5, mb: 2 }} />
                         <Button
+                          disabled={!store.is_active}
                           variant="contained"
                           sx={{
                             ml: "auto",
