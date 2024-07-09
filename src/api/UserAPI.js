@@ -1,5 +1,6 @@
 import axiosJWT from "./ConfigAxiosInterceptor";
 
+const URL_USER_FOR_AD = `https://swp-be.onrender.com/mamababy/users/admin/all`;
 const URL_USER = `https://swp-be.onrender.com/mamababy/users/all`;
 const URL_LOGIN = `https://swp-be.onrender.com/mamababy/users/login`;
 const URL_SIGNUP = `https://swp-be.onrender.com/mamababy/users/register`;
@@ -8,6 +9,12 @@ const URL_ACTIVE = `https://swp-be.onrender.com/mamababy/users/admin`;
 const URL_ACTIVESTORE = `https://swp-be.onrender.com/mamababy/users/admin`;
 // const URL_LOGOUT = `https://swp-be.onrender.com/mamababy/users/logout`;
 const URL_ACCOUNT = `https://swp-be.onrender.com/mamababy/users`;
+
+export const allUserForAdApi = (params) => {
+  return axiosJWT.get(URL_USER_FOR_AD, {
+    params: params,
+  });
+};
 
 export const allUserApi = (params) => {
   return axiosJWT.get(URL_USER, {
@@ -88,7 +95,9 @@ export const updateRollUserApi = (
 
 export const userByYearApi = async (selectedAccountYear) => {
   try {
-    const response = await axiosJWT.get(`${URL_ACCOUNT}/findByYear?year=${selectedAccountYear}`);
+    const response = await axiosJWT.get(
+      `${URL_ACCOUNT}/findByYear?year=${selectedAccountYear}`
+    );
     return response;
   } catch (error) {
     throw new Error(`Error fetching orders: ${error.message}`);

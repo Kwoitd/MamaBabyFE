@@ -25,15 +25,14 @@ import {
   NativeSelect,
   InputLabel,
   MenuItem,
-  Select
+  Select,
 } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import SearchIcon from "@mui/icons-material/Search";
 import EditIcon from "@mui/icons-material/Edit";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
-import 'react-toastify/dist/ReactToastify.css';
-import { allUserApi, updateAccountApi } from "../../api/UserAPI";
+import { allUserForAdApi, updateAccountApi } from "../../api/UserAPI";
 
 export default function AccountManagement() {
   window.document.title = "Account Management";
@@ -59,7 +58,7 @@ export default function AccountManagement() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const userRes = await allUserApi();
+      const userRes = await allUserForAdApi();
       let sortedUsers = userRes?.data?.data || [];
       if (sortingStatus === "active") {
         sortedUsers = sortedUsers.filter((user) => user.isActive);
@@ -116,9 +115,8 @@ export default function AccountManagement() {
   console.log(selectedAccount);
 
   const handleEdit = () => {
-
     if (!selectedAccount) {
-      console.error("No account selected for editing.");
+      toast.warn("No account selected for editing.", { autoClose: 1500 });
       return;
     }
 
@@ -136,11 +134,11 @@ export default function AccountManagement() {
       .then(() => {
         fetchData();
         closeUpdate();
-        toast.success("Account updated successfully.");
+        toast.success("Account updated successfully.", { autoClose: 1500 });
       })
       .catch((error) => {
         console.error("Error updating account:", error);
-        toast.error("Failed to update account. Please try again later.");
+        toast.error("Failed to update account. Please try again later.", { autoClose: 1500 });
       });
   };
 
@@ -160,7 +158,8 @@ export default function AccountManagement() {
   return (
     <div>
       <Container>
-        <Paper elevation={3}
+        <Paper
+          elevation={3}
           sx={{
             position: "sticky",
             marginTop: "20px",
@@ -180,12 +179,14 @@ export default function AccountManagement() {
               fontSize: "20px",
               borderRadius: "4px",
               textAlign: "center",
-              marginBottom: "16px"
-            }}>
+              marginBottom: "16px",
+            }}
+          >
             Accounts Management
           </Typography>
           <Grid
-            container spacing={2}
+            container
+            spacing={2}
             alignItems="center"
             sx={{ marginBottom: "16px" }}
           >
@@ -223,7 +224,10 @@ export default function AccountManagement() {
             </Grid>
             <Grid item xs={4} md={3}>
               <FormControl sx={{ width: "170px" }}>
-                <InputLabel htmlFor="sorting-status-select" id="sorting-status-label">
+                <InputLabel
+                  htmlFor="sorting-status-select"
+                  id="sorting-status-label"
+                >
                   Sorting Status
                 </InputLabel>
                 <Select
@@ -359,7 +363,7 @@ export default function AccountManagement() {
                 sx={{
                   justifyContent: "flex-end",
                   backgroundColor: "f1f1f1",
-                  marginRight: "40px"
+                  marginRight: "40px",
                 }}
                 labelRowsPerPage="Rows:"
                 labelDisplayedRows={({ from, to, count }) =>

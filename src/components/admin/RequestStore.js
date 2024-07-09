@@ -1,6 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 import React, { useEffect, useState } from "react";
-import { allUserApi, updateRollUserApi } from "../../api/UserAPI";
+import { allUserForAdApi, updateRollUserApi } from "../../api/UserAPI";
 import {
   requestStoreApi,
   allStoreByAdminApi,
@@ -69,9 +69,9 @@ export default function RequestStore() {
     try {
       const [storeRes, userRes] = await Promise.all([
         allStoreByAdminApi({
-          limit:1000,
+          limit: 1000,
         }),
-        allUserApi(),
+        allUserForAdApi(),
       ]);
 
       const storeData = storeRes?.data?.data?.stores || [];
@@ -157,7 +157,7 @@ export default function RequestStore() {
     )
       .then((res) => {
         toast.success("Request Accepted!", {
-          autoClose: 3000,
+          autoClose: 1500,
         });
         handleApproveUserStatus(userId, 2); // Pass userId and new roleId
         updateRequestStatus(selectedStoreId, "APPROVED");
@@ -179,11 +179,11 @@ export default function RequestStore() {
     const [address, description, phone, status, nameStore, isActive, userId] =
       selectedStore;
 
-    handleApproveUserStatus(userId, 1); 
+    handleApproveUserStatus(userId, 1);
 
     deleteStoreApi(selectedStoreId)
       .then(() => {
-        toast.success("Store deleted successfully!");
+        toast.success("Store deleted successfully!", { autoClose: 1500 });
         setLoading(true);
         setTimeout(() => {
           fetchData();
@@ -192,7 +192,7 @@ export default function RequestStore() {
       })
       .catch((error) => {
         console.log("Error deleting store:", error);
-        setLoading(false); 
+        setLoading(false);
       });
 
     handleClose();
@@ -232,7 +232,7 @@ export default function RequestStore() {
           full_name: selectedUser[1],
           address: selectedUser[2],
           phone_number: selectedUser[3],
-          status: true, 
+          status: true,
           roleId: newRoleId,
         });
 
@@ -241,17 +241,17 @@ export default function RequestStore() {
           selectedUser[1], // full_name
           selectedUser[2], // address
           selectedUser[3], // phone_number
-          true, 
-          newRoleId 
+          true,
+          newRoleId
         );
-        toast.success("User role and status updated successfully!");
+        toast.success("User role and status updated successfully!", { autoClose: 1500 });
         window.location.reload();
       } catch (error) {
         console.error("Error updating user status:", error);
-        toast.error("Failed to update user status.");
+        toast.error("Failed to update user status.", { autoClose: 1500 });
       }
     } else {
-      alert("Selected user not found in the list");
+      toast.warn("Selected user not found in the list", { autoClose: 1500 });
     }
   };
   const handleOpenLicense = (item) => {
@@ -278,8 +278,6 @@ export default function RequestStore() {
     setSelectedStoreId(null);
     setSelectedUserId(null);
   };
-
-
 
   return (
     <div
@@ -507,12 +505,12 @@ export default function RequestStore() {
                           textAlign: "center",
                         }}
                       > */}
-                        <img
-                          src={`${environment.apiBaseUrl}/stores/license/${selectedLicense}`}
-                          alt="Selected"
-                          style={{ width: "100%" }}
-                        />
-                      {/* </div>
+                    <img
+                      src={`${environment.apiBaseUrl}/stores/license/${selectedLicense}`}
+                      alt="Selected"
+                      style={{ width: "100%" }}
+                    />
+                    {/* </div>
                     </FormControl> */}
                   </Dialog>
 
