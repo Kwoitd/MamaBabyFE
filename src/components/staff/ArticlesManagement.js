@@ -261,21 +261,11 @@ export default function Articles() {
       .then((response) => {
         fetchData(minDate, maxDate);
         handleClose();
-        toast.success(`Article updated successfully: ${response.data}`, ), { autoClose: 1500 };
+        toast.success(`Article updated successfully: ${response.data}`, { autoClose: 1500 });
       })
       .catch((error) => {
         console.error("Error updating article:", error);
         toast.error("Failed to update article. Please try again later.", { autoClose: 1500 });
-
-        // if (error.response) {
-        //   console.error("Error response data:", error.response.data);
-        //   console.error("Error response status:", error.response.status);
-        //   console.error("Error response headers:", error.response.headers);
-        // } else if (error.request) {
-        //   console.error("Error request:", error.request);
-        // } else {
-        //   console.error("Error message:", error.message);
-        // }
       });
   };
 
@@ -816,7 +806,7 @@ export default function Articles() {
                             component="img"
                             image={
                               item.link_image &&
-                              item.link_image.includes("Article_")
+                                item.link_image.includes("Article_")
                                 ? `https://swp-be.onrender.com/mamababy/products/images/${item.link_image}`
                                 : "https://cdn-icons-png.freepik.com/256/2652/2652218.png?semt=ais_hybrid"
                             }
@@ -1438,7 +1428,7 @@ export default function Articles() {
                     <img
                       src={
                         product.image_url &&
-                        product.image_url.includes("Product_")
+                          product.image_url.includes("Product_")
                           ? `https://swp-be.onrender.com/mamababy/products/images/${product.image_url}`
                           : "https://cdn-icons-png.freepik.com/256/2652/2652218.png?semt=ais_hybrid"
                       }
