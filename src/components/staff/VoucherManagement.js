@@ -69,12 +69,14 @@ export default function Vouchers() {
   }, []);
 
   const fetchData = async () => {
-    setLoading(true);
+
     if (!storeId) {
       console.error("Store ID is undefined");
       return;
     }
+
     try {
+      setLoading(true);
       const voucherRes = await getVoucherByStoreIdApi(storeId);
 
       let sortedVouchers = voucherRes.data.data || [];
@@ -95,6 +97,12 @@ export default function Vouchers() {
       }, 1000);
     }
   };
+
+  useEffect(() => {
+    if (storeId) {
+      fetchData();
+    }
+  }, [storeId, sortingStatus]);
 
   useEffect(() => {
     const fetchStoreData = async () => {
@@ -118,12 +126,6 @@ export default function Vouchers() {
       setSearchKeyword(savedSearchKeyword);
     }
   }, []);
-
-  useEffect(() => {
-    if (storeId) {
-      fetchData();
-    }
-  }, [storeId, sortingStatus]);
 
   const openUpdate = (item) => {
     setOpenUpdateVoucher(true);
