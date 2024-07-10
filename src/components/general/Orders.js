@@ -408,20 +408,22 @@ export default function Orders() {
     //   .then((res) => (
     for (const item of items) {
       const res = await productByIdApi(item.product_id);
-      // console.log(res?.data?.data),
+        if (res?.data?.data.remain > 0) {
         dispatch(
           addToCart({
             product: {
               id: item.product_id,
               name: res?.data?.data.name,
               price: res?.data?.data.price,
+              remain: res?.data?.data.remain,
               store_id: res?.data?.data.store_id,
               point: res?.data?.data.point,
               type: res?.data?.data.type,
             },
-            quantity: item.quantity,
+            quantity: item.quantity > res?.data?.data.remain ? res?.data?.data.remain : item.quantity,
           })
-        );
+        )};
+        
     }
     toast.success("Your order is now added to cart", { autoClose: 1000 });
     handleClose();
