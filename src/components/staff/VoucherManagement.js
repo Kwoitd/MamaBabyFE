@@ -69,11 +69,11 @@ export default function Vouchers() {
   }, []);
 
   const fetchData = async () => {
+    setLoading(true);
     if (!storeId) {
       console.error("Store ID is undefined");
       return;
     }
-    setLoading(true);
     try {
       const voucherRes = await getVoucherByStoreIdApi(storeId);
 
