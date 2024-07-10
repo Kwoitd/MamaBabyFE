@@ -77,9 +77,11 @@ export default function Vouchers() {
         setStore(res?.data?.data);
       } catch (err) {
         console.log(err);
-      } setTimeout(() => {
-        setLoading(false);
-      }, 1000);
+      } finally {
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      }
     };
 
     fetchStoreData();
