@@ -99,24 +99,29 @@ export default function Vouchers() {
   };
 
   useEffect(() => {
-    if (storeId) {
-      fetchData();
-    }
-  }, [storeId, sortingStatus]);
-
-  useEffect(() => {
     const fetchStoreData = async () => {
       try {
+        setLoading(true);
         const res = await storeByUserIdApi(userId);
 
         setStore(res?.data?.data);
       } catch (err) {
         console.log(err);
+      } finally {
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       }
     };
 
     fetchStoreData();
   }, [userId]);
+
+  useEffect(() => {
+    if (storeId) {
+      fetchData();
+    }
+  }, [storeId, sortingStatus]);
 
   const storeId = store?.id;
 
