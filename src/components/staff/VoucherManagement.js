@@ -68,15 +68,39 @@ export default function Vouchers() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const fetchData = async () => {
+  useEffect(() => {
+    const fetchStoreData = async () => {
+      try {
+        setLoading(true);
+        const res = await storeByUserIdApi(userId);
 
+        setStore(res?.data?.data);
+      } catch (err) {
+        console.log(err);
+      } setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    };
+
+    fetchStoreData();
+  }, [userId]);
+
+  const storeId = store?.id;
+
+  useEffect(() => {
+    const savedSearchKeyword = localStorage.getItem("searchKeyword");
+    if (savedSearchKeyword) {
+      setSearchKeyword(savedSearchKeyword);
+    }
+  }, []);
+
+  const fetchData = async () => {
     if (!storeId) {
       console.error("Store ID is undefined");
       return;
     }
-
+    setLoading(true);
     try {
-      setLoading(true);
       const voucherRes = await getVoucherByStoreIdApi(storeId);
 
       let sortedVouchers = voucherRes.data.data || [];
@@ -99,38 +123,10 @@ export default function Vouchers() {
   };
 
   useEffect(() => {
-    const fetchStoreData = async () => {
-      try {
-        setLoading(true);
-        const res = await storeByUserIdApi(userId);
-
-        setStore(res?.data?.data);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
-      }
-    };
-
-    fetchStoreData();
-  }, [userId]);
-
-  useEffect(() => {
     if (storeId) {
       fetchData();
     }
   }, [storeId, sortingStatus]);
-
-  const storeId = store?.id;
-
-  useEffect(() => {
-    const savedSearchKeyword = localStorage.getItem("searchKeyword");
-    if (savedSearchKeyword) {
-      setSearchKeyword(savedSearchKeyword);
-    }
-  }, []);
 
   const openUpdate = (item) => {
     setOpenUpdateVoucher(true);
