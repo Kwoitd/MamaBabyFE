@@ -78,6 +78,7 @@ export default function Dashboard() {
   const [store, setStore] = useState(null);
   const [productMap, setProductMap] = useState({});
   const [yearOptions, setYearOptions] = useState([]);
+  const [monthlyRevenueData, setMonthlyRevenueData] = useState([]);
 
   useEffect(() => {
     const fetchStoreData = async () => {
@@ -290,6 +291,65 @@ export default function Dashboard() {
     } finally {
       setLoading(false);
     }
+  };
+  useEffect(() => {
+    calculateMonthlyRevenueData();
+  }, [orders]);
+
+  const calculateMonthlyRevenueData = () => {
+    // Lọc các đơn hàng đã hoàn thành
+    const completedOrders = orders.filter((order) =>
+      order.status_order_list.some((status) => status.status === "COMPLETED")
+    );
+
+    // Lọc các đơn hoàn trả đã được chấp nhận
+    const acceptedRefunds = refunds.filter(
+      (refund) => refund.status === "ACCEPT"
+    );
+
+    // Tạo mảng để lưu trữ doanh thu theo từng tháng
+    const revenueData = Array(12).fill(0);
+
+    // Tính tổng doanh thu theo từng tháng từ các đơn hàng đã hoàn thành và các đơn hoàn trả đã được chấp nhận
+    completedOrders.forEach((order) => {
+      const orderMonth = new Date(order.order_date).getMonth();
+      revenueData[orderMonth] += order.final_amount || 0;
+    });
+
+    acceptedRefunds.forEach((refund) => {
+      const refundMonth = new Date(refund.create_date).getMonth();
+      revenueData[refundMonth] -= refund.amount || 0;
+    });
+
+    // Cập nhật state với dữ liệu tổng doanh thu theo từng tháng
+    setMonthlyRevenueData(revenueData);
+  };
+
+  const MonthlyDataChart
+   = {
+    labels: [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ],
+    datasets: [
+      {
+        label: "Revenue",
+        data: monthlyRevenueData,
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 1,
+      },
+    ],
   };
 
   const currentYear = new Date().getFullYear();
@@ -1400,10 +1460,7 @@ export default function Dashboard() {
               <Grid item xs={12}>
                 <Card
                   onClick={handlePieChartClick}
-                  sx={{
-                    cursor: "pointer",
-                    ":hover": { backgroundColor: "#FFFAF0" },
-                  }}
+                  sx={{ ":hover": { backgroundColor: "#FFFAF0" } }}
                 >
                   <CardContent style={{ height: "129px" }}>
                     <Grid>
@@ -1433,45 +1490,8 @@ export default function Dashboard() {
               </Grid>
               <Grid item xs={12}>
                 <Card
-                  onClick={() => navigate("/staff/exchanges")}
-                  sx={{
-                    cursor: "pointer",
-                    ":hover": { backgroundColor: "#FFFAF0" },
-                  }}
-                >
-                  <CardContent style={{ height: "129px" }}>
-                    <Grid>
-                      <Typography
-                        variant="body1"
-                        style={{
-                          fontWeight: "bold",
-                          fontSize: "20px",
-                          color: "#00C49F",
-                        }}
-                      >
-                        Exchange
-                      </Typography>
-                      <Typography
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          paddingTop: "10px",
-                          fontSize: "30px",
-                        }}
-                      >
-                        <span>{exchangeCount}</span>
-                      </Typography>
-                    </Grid>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={12}>
-                <Card
                   onClick={() => navigate("/staff/refunds")}
-                  sx={{
-                    cursor: "pointer",
-                    ":hover": { backgroundColor: "#FFFAF0" },
-                  }}
+                  sx={{ ":hover": { backgroundColor: "#FFFAF0" } }}
                 >
                   <CardContent style={{ height: "129px" }}>
                     <Grid>
@@ -1494,6 +1514,37 @@ export default function Dashboard() {
                         }}
                       >
                         <span>{refundCount}</span>
+                      </Typography>
+                    </Grid>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item xs={12}>
+                <Card
+                  onClick={() => navigate("/staff/exchanges")}
+                  sx={{ ":hover": { backgroundColor: "#FFFAF0" } }}
+                >
+                  <CardContent style={{ height: "129px" }}>
+                    <Grid>
+                      <Typography
+                        variant="body1"
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: "20px",
+                          color: "#00C49F",
+                        }}
+                      >
+                        Exchange
+                      </Typography>
+                      <Typography
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          paddingTop: "10px",
+                          fontSize: "30px",
+                        }}
+                      >
+                        <span>{exchangeCount}</span>
                       </Typography>
                     </Grid>
                   </CardContent>
@@ -1624,6 +1675,50 @@ export default function Dashboard() {
                 </Card>
               </Grid>
             </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <Card>
+              <CardContent>
+                <Typography
+                  variant="h6"
+                  style={{
+                    textAlign: "center",
+                    color: "#ff469e",
+                    fontSize: "25px",
+                  }}
+                >
+                  Monthly Data
+                </Typography>
+                <Bar
+                  data={MonthlyDataChart}
+                  options={{
+                    responsive: true,
+                    plugins: {
+                      legend: {
+                        display: true,
+                        position: "top",
+                      },
+                    },
+                    scales: {
+                      x: {
+                        beginAtZero: true,
+                        title: {
+                          display: true,
+                          text: "Months",
+                        },
+                      },
+                      y: {
+                        beginAtZero: true,
+                        title: {
+                          display: true,
+                          text: "Revenue",
+                        },
+                      },
+                    },
+                  }}
+                />
+              </CardContent>
+            </Card>
           </Grid>
           <Grid item xs={12}>
             <Card>

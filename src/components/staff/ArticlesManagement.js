@@ -258,14 +258,24 @@ export default function Articles() {
     };
 
     updateArticleApi(selectedArticle.id, articleData, image.file)
-      .then((response) => {
+      .then((res) => {
         fetchData(minDate, maxDate);
         handleClose();
-        toast.success(`Article updated successfully: ${response.data}`, { autoClose: 1500 });
+        toast.success("Article updated successfully", { autoClose: 1500 });
       })
       .catch((error) => {
         console.error("Error updating article:", error);
         toast.error("Failed to update article. Please try again later.", { autoClose: 1500 });
+
+        // if (error.response) {
+        //   console.error("Error response data:", error.response.data);
+        //   console.error("Error response status:", error.response.status);
+        //   console.error("Error response headers:", error.response.headers);
+        // } else if (error.request) {
+        //   console.error("Error request:", error.request);
+        // } else {
+        //   console.error("Error message:", error.message);
+        // }
       });
   };
 
