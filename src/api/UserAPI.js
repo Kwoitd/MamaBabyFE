@@ -9,6 +9,7 @@ const URL_ACTIVE = `https://swp-be.onrender.com/mamababy/users/admin`;
 const URL_ACTIVESTORE = `https://swp-be.onrender.com/mamababy/users/admin`;
 // const URL_LOGOUT = `https://swp-be.onrender.com/mamababy/users/logout`;
 const URL_ACCOUNT = `https://swp-be.onrender.com/mamababy/users`;
+const URL_UPDATE = `https://swp-be.onrender.com/mamababy/users`;
 
 export const allUserForAdApi = (params) => {
   return axiosJWT.get(URL_USER_FOR_AD, {
@@ -106,4 +107,22 @@ export const userByYearApi = async (selectedAccountYear) => {
   } catch (error) {
     throw new Error(`Error fetching orders: ${error.message}`);
   }
+};
+
+export const updateAccount = (
+  username,
+  fullName,
+  password,
+  address,
+  phoneNumber
+) => {
+  return axiosJWT.put(URL_UPDATE, {
+    username: username,
+    fullName: fullName,
+    password: password,
+    address: address,
+    phoneNumber: phoneNumber,
+    status: "",
+    roleId: 0,
+  });
 };

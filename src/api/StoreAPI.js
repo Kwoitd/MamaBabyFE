@@ -76,6 +76,29 @@ export const requestStoreApi = (
     user_id: userId,
   });
 };
+
 export const deleteStoreApi = (storeId) => {
   return axiosJWT.delete(`${URL_STORE}/${storeId}`);
 };
+
+export const updateStoreApi = (
+  storeId,
+  nameStore,
+  address,
+  description,
+  phone,
+  status,
+  isActive,
+  userId
+) => {
+  return axiosJWT.put(`${URL_STORE}/${storeId}`, {
+    name_store: nameStore,
+    address: address,
+    description: description,
+    phone: phone,
+    status: status,
+    is_active: isActive,
+    user_id: userId,
+  });
+};
+

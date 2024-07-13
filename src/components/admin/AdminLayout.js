@@ -20,6 +20,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import InventoryIcon from '@mui/icons-material/Inventory';
 import { Typography } from "@mui/material";
 import { toast } from "react-toastify";
 const drawerWidth = 260;
@@ -45,9 +46,14 @@ const itemList = [
     href: "requeststore",
   },
   {
+    label: "Package",
+    Icon: InventoryIcon,
+    href: "package",
+  },
+  {
     label: "Age",
     Icon: PersonIcon,
-    href: "age",
+    href: "ages",
   },
   {
     label: "Brands",
