@@ -41,7 +41,7 @@ export default function PackageManagement() {
   const [packages, setpackages] = useState([]);
   const [storePackages, setStorePackages] = useState([]);
   const [storeMap, setStoreMap] = useState();
-  const [packagesPage, setPackagesPage] = useState(true);
+  const [packagesPage, setPackagesPage] = useState("PACKAGES");
   const [storePackagesPage, setStorepackagesPage] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState(currentMonth);
   const [monthsList, setMonthsList] = useState([]);
@@ -141,8 +141,8 @@ export default function PackageManagement() {
 
   const handleTabChange = (e) => {
     setLoading(true);
-    if (packagesPage === false) {
-      setPackagesPage(true);
+    if (packagesPage != "PACKAGES") {
+      setPackagesPage("PACKAGES");
       setStorepackagesPage(false);
     } else {
       setPackagesPage(false);
@@ -177,7 +177,7 @@ export default function PackageManagement() {
       packages.some(
         (packages) =>
           packages.package_name.toLowerCase() ===
-            trimmedPackageName.toLowerCase() &&
+          trimmedPackageName.toLowerCase() &&
           packages.id !== selectedPackage.id
       )
     ) {
@@ -425,6 +425,7 @@ export default function PackageManagement() {
               >
                 <Tab
                   label="PACKAGES"
+                  value="PACKAGES"
                   sx={{
                     backgroundColor:
                       packagesPage === true ? "#ff469e" : "#fff4fc",
@@ -449,6 +450,7 @@ export default function PackageManagement() {
                 />
                 <Tab
                   label="PROCESSING"
+                  value="PROCESSING"
                   sx={{
                     backgroundColor:
                       storePackagesPage === true ? "#ff469e" : "#fff4fc",
@@ -625,7 +627,6 @@ export default function PackageManagement() {
                   <Card
                     sx={{
                       flexGrow: 1,
-                      border: "1px solid #ff469e",
                       mb: "16px",
                       padding: "16px",
                       backgroundColor: "#ffffff",
@@ -635,7 +636,7 @@ export default function PackageManagement() {
                       "&:hover": {
                         boxShadow: 6,
                         transform: "scale(1.02)",
-                        border: "2px solid #ff469e",
+                        border: "1px solid #ff469e",
                       },
                     }}
                   >
@@ -785,7 +786,6 @@ export default function PackageManagement() {
             paginatedPackages.map((item) => (
               <Card
                 sx={{
-                  border: "1px solid #ff469e",
                   mb: "16px",
                   padding: "16px",
                   backgroundColor: "#ffffff",
