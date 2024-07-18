@@ -1740,7 +1740,7 @@ export default function Dashboard() {
                     fontWeight: "bold",
                   }}
                 >
-                  Yearly Data
+                  Yearly Profit
                 </Typography>
                 <Bar data={yearlyBarData} options={yearlyBarOptions} />
               </CardContent>
