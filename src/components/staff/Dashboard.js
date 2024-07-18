@@ -1374,7 +1374,7 @@ export default function Dashboard() {
             <Card
               style={{ boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)" }}
             >
-              <CardContent>
+              <CardContent style={{ height: "780px" }}>
                 <Typography
                   variant="h6"
                   sx={{
@@ -1565,7 +1565,7 @@ export default function Dashboard() {
             <Card
               style={{ boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)" }}
             >
-              <CardContent>
+              <CardContent style={{ height: "595px" }}>
                 <Typography
                   variant="h6"
                   style={{
