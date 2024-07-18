@@ -1374,33 +1374,28 @@ export default function Dashboard() {
             <Card
               style={{ boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)" }}
             >
-              <Typography
-                variant="h6"
-                sx={{
-                  fontSize: "25px",
-                  fontWeight: "bold",
-                  color: "#ff469e",
-                  textAlign: "center",
-                  paddingTop: "10px",
-                  "&:hover": {
-                    cursor: "pointer",
-                    color: "#E9967A",
-                  },
-                }}
-                onClick={handlePieChartClick}
-              >
-                Orders of Store
-              </Typography>
-              <CardContent
-                style={{ height: "610px", display: "flex", justifyContent: "center" }}>
+              <CardContent>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontSize: "25px",
+                    fontWeight: "bold",
+                    color: "#ff469e",
+                    textAlign: "center",
+                    paddingTop: "10px",
+                    "&:hover": {
+                      cursor: "pointer",
+                      color: "#E9967A",
+                    },
+                  }}
+                  onClick={handlePieChartClick}
+                >
+                  Orders of Store
+                </Typography>
                 <Pie
                   data={pieData}
                   options={{
                     plugins: {
-                      legend: {
-                        display: true,
-                        position: "right",
-                      },
                       datalabels: {
                         formatter: (value, ctx) => {
                           if (value === 0) {
@@ -1420,6 +1415,10 @@ export default function Dashboard() {
                           weight: "bold",
                           size: 16,
                         },
+                      },
+                      legend: {
+                        display: true,
+                        position: "right",
                       },
                     },
                     elements: {
@@ -1472,7 +1471,7 @@ export default function Dashboard() {
                 <Card
                   style={{ boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)" }}
                 >
-                  <CardContent style={{ height: "185px" }}>
+                  <CardContent style={{ height: "225px" }}>
                     <Grid>
                       <Typography
                         variant="body1"
@@ -1502,7 +1501,7 @@ export default function Dashboard() {
                 <Card
                   style={{ boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)" }}
                 >
-                  <CardContent style={{ height: "186px" }}>
+                  <CardContent style={{ height: "225px" }}>
                     <Grid>
                       <Typography
                         variant="body1"
@@ -1532,7 +1531,7 @@ export default function Dashboard() {
                 <Card
                   style={{ boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)" }}
                 >
-                  <CardContent style={{ height: "185px" }}>
+                  <CardContent style={{ height: "225px" }}>
                     <Grid>
                       <Typography
                         variant="body1"
@@ -1566,18 +1565,18 @@ export default function Dashboard() {
             <Card
               style={{ boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)" }}
             >
-              <Typography
-                variant="h6"
-                style={{
-                  textAlign: "center",
-                  color: "#ff469e",
-                  fontSize: "25px",
-                  fontWeight: "bold",
-                }}
-              >
-                Financial Summary
-              </Typography>
-              <CardContent style={{ height: "610px", display: "flex", justifyContent: "center" }}>
+              <CardContent>
+                <Typography
+                  variant="h6"
+                  style={{
+                    textAlign: "center",
+                    color: "#ff469e",
+                    fontSize: "25px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Financial Summary
+                </Typography>
                 <Grid container justifyContent="center">
                   <Bar
                     data={barData}
@@ -1595,7 +1594,7 @@ export default function Dashboard() {
             <Grid container spacing={2} direction="column">
               <Grid item xs={12}>
                 <Card style={{ boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
-                  <CardContent style={{ height: "206px" }}>
+                  <CardContent style={{ height: "188px" }}>
                     <Grid>
                       <Typography
                         variant="body1"
@@ -1625,7 +1624,7 @@ export default function Dashboard() {
               </Grid>
               <Grid item xs={12}>
                 <Card style={{ boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
-                  <CardContent style={{ height: "206px" }}>
+                  <CardContent style={{ height: "187px" }}>
                     <Grid>
                       <Typography
                         variant="body1"
@@ -1655,7 +1654,7 @@ export default function Dashboard() {
               </Grid>
               <Grid item xs={12}>
                 <Card style={{ boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
-                  <CardContent style={{ height: "206px" }}>
+                  <CardContent style={{ height: "187px" }}>
                     <Grid>
                       <Typography
                         variant="body1"
