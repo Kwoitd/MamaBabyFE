@@ -1565,18 +1565,18 @@ export default function Dashboard() {
             <Card
               style={{ boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)" }}
             >
-              <CardContent style={{ height: "595px" }}>
-                <Typography
-                  variant="h6"
-                  style={{
-                    textAlign: "center",
-                    color: "#ff469e",
-                    fontSize: "25px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Financial Summary
-                </Typography>
+              <Typography
+                variant="h6"
+                style={{
+                  textAlign: "center",
+                  color: "#ff469e",
+                  fontSize: "25px",
+                  fontWeight: "bold",
+                }}
+              >
+                Financial Summary
+              </Typography>
+              <CardContent style={{ height: "595px", display: "flex" }}>
                 <Grid container justifyContent="center">
                   <Bar
                     data={barData}
@@ -1594,7 +1594,7 @@ export default function Dashboard() {
             <Grid container spacing={2} direction="column">
               <Grid item xs={12}>
                 <Card style={{ boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
-                  <CardContent style={{ height: "188px" }}>
+                  <CardContent style={{ height: "201px" }}>
                     <Grid>
                       <Typography
                         variant="body1"
@@ -1624,7 +1624,7 @@ export default function Dashboard() {
               </Grid>
               <Grid item xs={12}>
                 <Card style={{ boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
-                  <CardContent style={{ height: "187px" }}>
+                  <CardContent style={{ height: "201px" }}>
                     <Grid>
                       <Typography
                         variant="body1"
@@ -1654,7 +1654,7 @@ export default function Dashboard() {
               </Grid>
               <Grid item xs={12}>
                 <Card style={{ boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
-                  <CardContent style={{ height: "187px" }}>
+                  <CardContent style={{ height: "201px" }}>
                     <Grid>
                       <Typography
                         variant="body1"
