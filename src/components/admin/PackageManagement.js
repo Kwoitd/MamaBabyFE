@@ -42,7 +42,6 @@ export default function PackageManagement() {
   const [storePackages, setStorePackages] = useState([]);
   const [storeMap, setStoreMap] = useState();
   const [packagesPage, setPackagesPage] = useState("PACKAGES");
-  const [storePackagesPage, setStorepackagesPage] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState(currentMonth);
   const [monthsList, setMonthsList] = useState([]);
   const [page, setPage] = useState(0);
@@ -143,10 +142,8 @@ export default function PackageManagement() {
     setLoading(true);
     if (packagesPage != "PACKAGES") {
       setPackagesPage("PACKAGES");
-      setStorepackagesPage(false);
     } else {
-      setPackagesPage(false);
-      setStorepackagesPage(true);
+      setPackagesPage("COMPLETED");
     }
     setTimeout(() => {
       setLoading(false);
@@ -273,132 +270,154 @@ export default function PackageManagement() {
       }}
     >
       <Container sx={{ my: 4 }}>
-        {packagesPage ? (
-          <Tabs
-            value={packages}
-            onChange={handleTabChange}
-            variant="scrollable"
-            scrollButtons="auto"
-            TabIndicatorProps={{ style: { display: "flex" } }}
+        {packagesPage == "PACKAGES" ? (
+          <Box
             sx={{
-              border: "1px solid #ff469e",
-              backgroundColor: "white",
-              borderRadius: "30px",
-              opacity: 0.95,
-              width: "24.3%",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              height: "60px",
+              width: "100%",
             }}
           >
-            <Tab
-              label="PACKAGES"
+            <Tabs
+              value={packagesPage}
+              onChange={handleTabChange}
+              variant="scrollable"
+              scrollButtons="auto"
+              TabIndicatorProps={{ style: { display: "none" } }}
               sx={{
-                backgroundColor: packagesPage === true ? "#ff469e" : "#fff4fc",
-                color: packagesPage === true ? "white" : "#ff469e",
-                borderRadius: "20px",
-                minHeight: "30px",
-                minWidth: "100px",
-                m: 1,
-                fontWeight: "bold",
-                boxShadow: "none",
-                transition:
-                  "background-color 0.3s ease-in-out, color 0.3s ease-in-out, border 0.3s ease-in-out",
                 border: "1px solid #ff469e",
-                "&:hover": {
-                  backgroundColor: "#ff469e",
-                  color: "white",
-                },
-                "&.Mui-selected": {
-                  color: "white",
-                },
+                backgroundColor: "white",
+                borderRadius: "30px",
+                opacity: 0.95,
               }}
-            />
-            <Tab
-              label="PROCESSING"
-              sx={{
-                backgroundColor:
-                  storePackagesPage === true ? "#ff469e" : "#fff4fc",
-                color: storePackagesPage === true ? "white" : "#ff469e",
-                borderRadius: "20px",
-                minHeight: "30px",
-                minWidth: "100px",
-                m: 1,
-                fontWeight: "bold",
-                boxShadow: "none",
-                transition:
-                  "background-color 0.3s ease-in-out, color 0.3s ease-in-out, border 0.3s ease-in-out",
-                border: "1px solid #ff469e",
-                "&:hover": {
-                  backgroundColor: "#ff469e",
-                  color: "white",
-                },
-                "&.Mui-selected": {
-                  color: "white",
-                },
-              }}
-            />
-          </Tabs>
-        ) : !packagesPage && loading ? (
-          <Tabs
-            value={packages}
-            onChange={handleTabChange}
-            variant="scrollable"
-            scrollButtons="auto"
-            TabIndicatorProps={{ style: { display: "flex" } }}
+            >
+              <Tab
+                label="PACKAGES"
+                value="PACKAGES"
+                sx={{
+                  backgroundColor: packagesPage === "PACKAGES" ? "#ff469e" : "#fff4fc",
+                  color: packagesPage === "PACKAGES" ? "white" : "#ff469e",
+                  borderRadius: "20px",
+                  minHeight: "30px",
+                  minWidth: "100px",
+                  m: 1,
+                  fontWeight: "bold",
+                  boxShadow: "none",
+                  transition:
+                    "background-color 0.3s ease-in-out, color 0.3s ease-in-out, border 0.3s ease-in-out",
+                  border: "1px solid #ff469e",
+                  "&:hover": {
+                    backgroundColor: "#ff469e",
+                    color: "white",
+                  },
+                  "&.Mui-selected": {
+                    color: "white",
+                  },
+                }}
+              />
+              <Tab
+                label="COMPLETED"
+                value="COMPLETED"
+                sx={{
+                  backgroundColor:
+                    packagesPage === "COMPLETED" ? "#ff469e" : "#fff4fc",
+                  color: packagesPage === "COMPLETED" ? "white" : "#ff469e",
+                  borderRadius: "20px",
+                  minHeight: "30px",
+                  minWidth: "100px",
+                  m: 1,
+                  fontWeight: "bold",
+                  boxShadow: "none",
+                  transition:
+                    "background-color 0.3s ease-in-out, color 0.3s ease-in-out, border 0.3s ease-in-out",
+                  border: "1px solid #ff469e",
+                  "&:hover": {
+                    backgroundColor: "#ff469e",
+                    color: "white",
+                  },
+                  "&.Mui-selected": {
+                    color: "white",
+                  },
+                }}
+              />
+            </Tabs>
+          </Box>
+        ) : packagesPage == "COMPLETED" && loading ? (
+          <Box
             sx={{
-              border: "1px solid #ff469e",
-              backgroundColor: "white",
-              borderRadius: "30px",
-              opacity: 0.95,
-              width: "24.3%",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              height: "60px",
+              width: "100%",
             }}
           >
-            <Tab
-              label="PACKAGES"
+            <Tabs
+              value={packagesPage}
+              onChange={handleTabChange}
+              variant="scrollable"
+              scrollButtons="auto"
+              TabIndicatorProps={{ style: { display: "none" } }}
               sx={{
-                backgroundColor: packagesPage === true ? "#ff469e" : "#fff4fc",
-                color: packagesPage === true ? "white" : "#ff469e",
-                borderRadius: "20px",
-                minHeight: "30px",
-                minWidth: "100px",
-                m: 1,
-                fontWeight: "bold",
-                boxShadow: "none",
-                transition:
-                  "background-color 0.3s ease-in-out, color 0.3s ease-in-out, border 0.3s ease-in-out",
                 border: "1px solid #ff469e",
-                "&:hover": {
-                  backgroundColor: "#ff469e",
-                  color: "white",
-                },
-                "&.Mui-selected": {
-                  color: "white",
-                },
+                backgroundColor: "white",
+                borderRadius: "30px",
+                opacity: 0.95,
               }}
-            />
-            <Tab
-              label="PROCESSING"
-              sx={{
-                backgroundColor:
-                  storePackagesPage === true ? "#ff469e" : "#fff4fc",
-                color: storePackagesPage === true ? "white" : "#ff469e",
-                borderRadius: "20px",
-                minHeight: "30px",
-                minWidth: "100px",
-                m: 1,
-                fontWeight: "bold",
-                boxShadow: "none",
-                transition:
-                  "background-color 0.3s ease-in-out, color 0.3s ease-in-out, border 0.3s ease-in-out",
-                border: "1px solid #ff469e",
-                "&:hover": {
-                  backgroundColor: "#ff469e",
-                  color: "white",
-                },
-                "&.Mui-selected": {
-                  color: "white",
-                },
-              }}
-            />
-          </Tabs>
+            >
+              <Tab
+                label="PACKAGES"
+                value="PACKAGES"
+                sx={{
+                  backgroundColor: packagesPage === "PACKAGES" ? "#ff469e" : "#fff4fc",
+                  color: packagesPage === "PACKAGES" ? "white" : "#ff469e",
+                  borderRadius: "20px",
+                  minHeight: "30px",
+                  minWidth: "100px",
+                  m: 1,
+                  fontWeight: "bold",
+                  boxShadow: "none",
+                  transition:
+                    "background-color 0.3s ease-in-out, color 0.3s ease-in-out, border 0.3s ease-in-out",
+                  border: "1px solid #ff469e",
+                  "&:hover": {
+                    backgroundColor: "#ff469e",
+                    color: "white",
+                  },
+                  "&.Mui-selected": {
+                    color: "white",
+                  },
+                }}
+              />
+              <Tab
+                label="COMPLETED"
+                value="COMPLETED"
+                sx={{
+                  backgroundColor:
+                    packagesPage === "COMPLETED" ? "#ff469e" : "#fff4fc",
+                  color: packagesPage === "COMPLETED" ? "white" : "#ff469e",
+                  borderRadius: "20px",
+                  minHeight: "30px",
+                  minWidth: "100px",
+                  m: 1,
+                  fontWeight: "bold",
+                  boxShadow: "none",
+                  transition:
+                    "background-color 0.3s ease-in-out, color 0.3s ease-in-out, border 0.3s ease-in-out",
+                  border: "1px solid #ff469e",
+                  "&:hover": {
+                    backgroundColor: "#ff469e",
+                    color: "white",
+                  },
+                  "&.Mui-selected": {
+                    color: "white",
+                  },
+                }}
+              />
+            </Tabs>
+          </Box>
         ) : (
           <Box
             sx={{
@@ -411,11 +430,11 @@ export default function PackageManagement() {
           >
             <Box>
               <Tabs
-                value={packages}
+                value={packagesPage}
                 onChange={handleTabChange}
                 variant="scrollable"
                 scrollButtons="auto"
-                TabIndicatorProps={{ style: { display: "flex" } }}
+                TabIndicatorProps={{ style: { display: "none" } }}
                 sx={{
                   border: "1px solid #ff469e",
                   backgroundColor: "white",
@@ -428,8 +447,8 @@ export default function PackageManagement() {
                   value="PACKAGES"
                   sx={{
                     backgroundColor:
-                      packagesPage === true ? "#ff469e" : "#fff4fc",
-                    color: packagesPage === true ? "white" : "#ff469e",
+                      packagesPage === "PACKAGES" ? "#ff469e" : "#fff4fc",
+                    color: packagesPage === "PACKAGES" ? "white" : "#ff469e",
                     borderRadius: "20px",
                     minHeight: "30px",
                     minWidth: "100px",
@@ -449,12 +468,12 @@ export default function PackageManagement() {
                   }}
                 />
                 <Tab
-                  label="PROCESSING"
-                  value="PROCESSING"
+                  label="COMPLETED"
+                  value="COMPLETED"
                   sx={{
                     backgroundColor:
-                      storePackagesPage === true ? "#ff469e" : "#fff4fc",
-                    color: storePackagesPage === true ? "white" : "#ff469e",
+                      packagesPage === "COMPLETED" ? "#ff469e" : "#fff4fc",
+                    color: packagesPage === "COMPLETED" ? "white" : "#ff469e",
                     borderRadius: "20px",
                     minHeight: "30px",
                     minWidth: "100px",
@@ -500,8 +519,7 @@ export default function PackageManagement() {
                     border: "none",
                   },
                   "& .MuiInputLabel-root": {
-                    top: "-1px",
-                    backgroundColor: "white",
+                    top: "-7px",
                   },
                 }}
                 size="medium"
@@ -524,6 +542,13 @@ export default function PackageManagement() {
                   inputProps={{
                     name: "Month",
                     id: "month-select",
+                  }}
+                  MenuProps={{
+                    PaperProps: {
+                      style: {
+                        marginTop: '3px',
+                      },
+                    },
                   }}
                   sx={{
                     "& .MuiSelect-select": {
@@ -614,7 +639,7 @@ export default function PackageManagement() {
                 There's no packages in this tab
               </Typography>
             </Box>
-          ) : packagesPage ? (
+          ) : packagesPage == "PACKAGES" ? (
             <Grid container spacing={2} direction="row">
               {packages.map((item) => (
                 <Grid
@@ -947,7 +972,7 @@ export default function PackageManagement() {
               </Card>
             ))
           )}
-          {loading ? null : packagesPage ? null : paginatedPackages.length !=
+          {loading ? null : packagesPage == "PACKAGES" ? null : paginatedPackages.length !=
             0 ? (
             <Pagination
               count={totalPages}
