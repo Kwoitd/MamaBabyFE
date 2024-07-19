@@ -522,7 +522,7 @@ const RegistStore = () => {
                           </Typography>
                           <Box sx={{ ml: 2, mt: 1 }}>
                             <Typography>
-                              By using the Services, registering for an
+                              - By using the Services, registering for an
                               account with us or accessing the platform, you
                               acknowledge and agree that you accept the
                               practices, requirements and/or policies described
