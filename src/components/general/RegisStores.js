@@ -522,7 +522,7 @@ const RegistStore = () => {
                           </Typography>
                           <Box sx={{ ml: 2, mt: 1 }}>
                             <Typography>
-                              - By using the Services, registering for an
+                              By using the Services, registering for an
                               account with us or accessing the platform, you
                               acknowledge and agree that you accept the
                               practices, requirements and/or policies described
@@ -530,11 +530,14 @@ const RegistStore = () => {
                               you hereby confirm that you have your full
                               knowledge and consent to our collection, use,
                               disclosure and/or processing of your personal data
-                              as described herein. IF YOU DO NOT AGREE TO THE
-                              PROCESSING OF YOUR PERSONAL DATA AS DESCRIBED IN
-                              THIS POLICY, PLEASE DO NOT USE OUR SERVICES OR
-                              ACCESS THE NOTES PLATFORM OR WEBSITE. If we change
-                              our Privacy Policy, we will notify you including
+                              as described herein.
+                              <span style={{ color: 'red' }}>
+                                IF YOU DO NOT AGREE TO THE
+                                PROCESSING OF YOUR PERSONAL DATA AS DESCRIBED IN
+                                THIS POLICY, PLEASE DO NOT USE OUR SERVICES OR
+                                ACCESS THE NOTES PLATFORM OR WEBSITE.
+                              </span>
+                              If we change our Privacy Policy, we will notify you including
                               by posting those changes or the revised Privacy
                               Policy on our platform. To the extent permitted by
                               law, your continued use of the Services or
